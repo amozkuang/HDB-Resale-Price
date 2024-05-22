@@ -12,14 +12,14 @@ import joblib
 # Set the page configuration
 st.set_page_config(
     page_title="ERA HDB Resale Price Predictor",
-    page_icon="/img/era.png",
+    page_icon="HDB-Resale-Price/img/era.png",
     layout="wide"
 )
 
 # Load your dataset
 @st.cache_data
 def load_data():
-    return pd.read_csv('/datasets/train_edavis.csv') 
+    return pd.read_csv('HDB-Resale-Price/datasets/train_edavis.csv') 
 
 df = load_data()
 
