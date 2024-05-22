@@ -23,15 +23,12 @@ def load_data():
 
 df = load_data()
 
-# Filter to only include central region
-df = df[df['Region'] == 'Central']
-
 # Rename 'vacancy' to 'vacancy_in_nearest_pri_sch'
 df = df.rename(columns={'vacancy': 'vacancy_in_nearest_pri_sch'})
 
 # Define the features to remove
 features_to_remove = [
-    'central', 'Region', 'mall_within_500m', 'mall_within_1km', 'mall_within_2km', 
+    'central', 'mall_within_500m', 'mall_within_1km', 'mall_within_2km', 
     'hawker_within_500m', 'hawker_within_1km', 'hawker_within_2km', 
     '1room_sold', '2room_sold', '3room_sold', '4room_sold', '5room_sold', 
     'exec_sold', 'multigen_sold', 'studio_apartment_sold', 'lower', 'mid', 'upper', 'planning_area'
