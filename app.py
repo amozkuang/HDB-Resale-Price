@@ -1,11 +1,4 @@
 import streamlit as st
-
-st.set_page_config(
-    page_title="ERA HDB Resale Price Predictor",
-    page_icon="/Users/amoz/GA/HDB_Resale_Price/img/era.png",
-    layout="wide"
-)
-
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
@@ -15,6 +8,13 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
 import joblib
+
+# Set the page configuration
+st.set_page_config(
+    page_title="ERA HDB Resale Price Predictor",
+    page_icon="/Users/amoz/GA/HDB_Resale_Price/img/era.png",
+    layout="wide"
+)
 
 # Load your dataset
 @st.cache_data
@@ -159,11 +159,11 @@ with st.expander("School-related features"):
         input_data['sec_sch_name'] = st.selectbox('sec_sch_name', df['sec_sch_name'].unique())
     with col2:
         input_data['pri_sch_nearest_distance'] = st.slider('pri_sch_nearest_distance', min_value=0, max_value=int(df['pri_sch_nearest_distance'].max()), value=int(df['pri_sch_nearest_distance'].mean()))
-        input_data['sec_sch_nearest_dist'] = st.slider('sec_sch_nearest_dist', min_value=0, max_value=int(df['sec_sch_nearest_dist'].max()), value(int(df['sec_sch_nearest_dist'].mean()))
+        input_data['sec_sch_nearest_dist'] = st.slider('sec_sch_nearest_dist', min_value=0, max_value=int(df['sec_sch_nearest_dist'].max()), value=int(df['sec_sch_nearest_dist'].mean()))
 
     col3, col4 = st.columns(2)
     with col3:
-        input_data['cutoff_point'] = st.slider('cutoff_point', min_value=0, max_value(int(df['cutoff_point'].max()), value=int(df['cutoff_point'].mean()))
+        input_data['cutoff_point'] = st.slider('cutoff_point', min_value=0, max_value=int(df['cutoff_point'].max()), value=int(df['cutoff_point'].mean()))
         input_data['affiliation'] = st.selectbox('affiliation', options=['No', 'Yes'])
         input_data['affiliation'] = 1 if input_data['affiliation'] == 'Yes' else 0
     with col4:
