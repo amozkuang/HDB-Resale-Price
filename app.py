@@ -19,12 +19,10 @@ st.set_page_config(
 # Load your dataset
 @st.cache_data
 def load_data():
-    return pd.read_csv('datasets/train_edavis.csv') 
+    df = pd.read_csv('datasets/train_edavis.csv')
+    return df.sample(frac=0.75, random_state=42)  # Use 3/4 of the dataset
 
 df = load_data()
-
-# Sample 3/4 of the dataset
-df = df.sample(frac=0.75, random_state=42)
 
 # Rename 'vacancy' to 'vacancy_in_nearest_pri_sch'
 df = df.rename(columns={'vacancy': 'vacancy_in_nearest_pri_sch'})
