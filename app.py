@@ -23,6 +23,9 @@ def load_data():
 
 df = load_data()
 
+# Sample 3/4 of the dataset
+df = df.sample(frac=0.75, random_state=42)
+
 # Rename 'vacancy' to 'vacancy_in_nearest_pri_sch'
 df = df.rename(columns={'vacancy': 'vacancy_in_nearest_pri_sch'})
 
