@@ -1,18 +1,12 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import train_test_split
-from sklearn import metrics
 import joblib
 
 # Set the page configuration
 st.set_page_config(
     page_title="ERA HDB Resale Price Predictor",
-    page_icon="img/era.png",
+    page_icon="images/portfolio_logo.png",
     layout="wide"
 )
 
@@ -60,43 +54,8 @@ df['total_dwelling_units'] = df['total_dwelling_units'].astype(int)
 # Define binary features
 binary_features = ['bus_interchange', 'mrt_interchange', 'market_hawker', 'multistorey_carpark']
 
-# Define preprocessing steps
-numeric_transformer = Pipeline(steps=[
-    ('scaler', StandardScaler())
-])
-
-categorical_transformer = Pipeline(steps=[
-    ('onehot', OneHotEncoder(handle_unknown='ignore'))
-])
-
-# Combine preprocessing steps
-preprocessor = ColumnTransformer(
-    transformers=[
-        ('num', numeric_transformer, numeric_features),
-        ('cat', categorical_transformer, categorical_features)
-    ])
-
-# Define the model pipeline
-model_pipeline = Pipeline(steps=[
-    ('preprocessor', preprocessor),
-    ('regressor', RandomForestRegressor(n_estimators=100, random_state=42))
-])
-
-# Splitting data into features (X) and target (y)
-X = df.drop(['resale_price', 'id'], axis=1)
-y = df['resale_price']
-
-# Splitting the data into train and test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, random_state=42)
-
-# Fit the model
-model_pipeline.fit(X_train, y_train)
-
-# Save the model
-joblib.dump(model_pipeline, 'model_pipeline.pkl')
-
-# Load the model
-model_pipeline = joblib.load('model_pipeline.pkl')
+# Load the pre-trained model
+model_pipeline = joblib.load('../model.pkl')
 
 # Streamlit app
 st.title("🏘️ ERA HDB Resale Price Predictor: Trusted by Generations")

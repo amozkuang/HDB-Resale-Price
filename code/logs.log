@@ -6323,3 +6323,11 @@ Increase the number of iterations (max_iter) or scale the data as shown in:
 2024-05-21 11:09:15,773:INFO:_display_container: 2
 2024-05-21 11:09:15,773:INFO:RandomForestRegressor(n_jobs=-1, random_state=123)
 2024-05-21 11:09:15,773:INFO:compare_models() successfully completed......................................
+2024-05-31 01:20:15,785:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-31 01:20:15,786:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-31 01:20:15,786:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-31 01:20:15,786:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
