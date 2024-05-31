@@ -12,7 +12,7 @@ import joblib
 # Set the page configuration
 st.set_page_config(
     page_title="ERA HDB Resale Price Predictor",
-    page_icon="images/portfolio_logo.png",
+    page_icon="images/era.png",
     layout="wide"
 )
 
