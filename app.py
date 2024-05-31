@@ -11,7 +11,7 @@ from sklearn import metrics
 # Set the page configuration
 st.set_page_config(
     page_title="ERA HDB Resale Price Predictor",
-    page_icon="images/era.png",
+    page_icon="img/era.png",
     layout="wide"
 )
 
@@ -19,7 +19,7 @@ st.set_page_config(
 @st.cache_data
 def load_data():
     df = pd.read_csv('datasets/train_edavis.csv')
-    return df.sample(frac=0.1, random_state=42)  # Use 1/4 of the dataset
+    return df.sample(frac=0.05, random_state=42)  # Use 1/4 of the dataset
 
 df = load_data()
 
