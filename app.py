@@ -6,12 +6,13 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
+from sklearn import metrics
 import joblib
 
 # Set the page configuration
 st.set_page_config(
     page_title="ERA HDB Resale Price Predictor",
-    page_icon="img/era.png",
+    page_icon="images/portfolio_logo.png",
     layout="wide"
 )
 
@@ -19,7 +20,7 @@ st.set_page_config(
 @st.cache_data
 def load_data():
     df = pd.read_csv('datasets/train_edavis.csv')
-    return df.sample(frac=0.25, random_state=42)  # Use 1/4 of the dataset to reduce memory usage
+    return df.sample(frac=0.25, random_state=42)  # Use 1/4 of the dataset
 
 df = load_data()
 
@@ -50,7 +51,6 @@ numeric_features.append('age_of_flat')
 
 # Convert the necessary columns to integers
 df['hawker_food_stalls'] = df['hawker_food_stalls'].astype(int)
-df['hawker_market_stalls'] = df['hawker_market_stalls'].astype
 df['hawker_market_stalls'] = df['hawker_market_stalls'].astype(int)
 df['vacancy_in_nearest_pri_sch'] = df['vacancy_in_nearest_pri_sch'].astype(int)
 df['age_of_flat'] = df['age_of_flat'].astype(int)
