@@ -19,7 +19,7 @@ st.set_page_config(
 @st.cache_data
 def load_data():
     df = pd.read_csv('datasets/train_edavis.csv')
-    return df.sample(frac=0.75, random_state=42)  # Use 3/4 of the dataset
+    return df.sample(frac=0.25, random_state=42)  # Use 1/4 of the dataset to reduce memory usage
 
 df = load_data()
 
@@ -50,6 +50,7 @@ numeric_features.append('age_of_flat')
 
 # Convert the necessary columns to integers
 df['hawker_food_stalls'] = df['hawker_food_stalls'].astype(int)
+df['hawker_market_stalls'] = df['hawker_market_stalls'].astype
 df['hawker_market_stalls'] = df['hawker_market_stalls'].astype(int)
 df['vacancy_in_nearest_pri_sch'] = df['vacancy_in_nearest_pri_sch'].astype(int)
 df['age_of_flat'] = df['age_of_flat'].astype(int)
@@ -59,43 +60,13 @@ df['total_dwelling_units'] = df['total_dwelling_units'].astype(int)
 # Define binary features
 binary_features = ['bus_interchange', 'mrt_interchange', 'market_hawker', 'multistorey_carpark']
 
-# Define preprocessing steps
-numeric_transformer = Pipeline(steps=[
-    ('scaler', StandardScaler())
-])
+# Load the pre-trained model
+@st.cache_resource
+def load_model():
+    model_pipeline = joblib.load('../model.pkl')
+    return model_pipeline
 
-categorical_transformer = Pipeline(steps=[
-    ('onehot', OneHotEncoder(handle_unknown='ignore'))
-])
-
-# Combine preprocessing steps
-preprocessor = ColumnTransformer(
-    transformers=[
-        ('num', numeric_transformer, numeric_features),
-        ('cat', categorical_transformer, categorical_features)
-    ])
-
-# Define the model pipeline
-model_pipeline = Pipeline(steps=[
-    ('preprocessor', preprocessor),
-    ('regressor', RandomForestRegressor(n_estimators=100, random_state=42))
-])
-
-# Splitting data into features (X) and target (y)
-X = df.drop(['resale_price', 'id'], axis=1)
-y = df['resale_price']
-
-# Splitting the data into train and test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, random_state=42)
-
-# Fit the model
-model_pipeline.fit(X_train, y_train)
-
-# Save the model
-joblib.dump(model_pipeline, '../model_pipeline.pkl')
-
-# Load the model
-model_pipeline = joblib.load('../model_pipeline.pkl')
+model_pipeline = load_model()
 
 # Streamlit app
 st.title("🏘️ ERA HDB Resale Price Predictor: Trusted by Generations")
@@ -103,8 +74,8 @@ st.title("🏘️ ERA HDB Resale Price Predictor: Trusted by Generations")
 # Housing-related features
 with st.expander("Housing-related features", expanded=True):
     col1, col2 = st.columns(2)
+    input_data = {}
     with col1:
-        input_data = {}
         for feature in ['town', 'flat_type', 'flat_model', 'storey_range', 'age_of_flat', 'floor_area_sqft']:
             input_data[feature] = st.selectbox(feature, df[feature].unique()) if feature in categorical_features else st.slider(feature, min_value=int(df[feature].min()), max_value=int(df[feature].max()), value=int(df[feature].mean()))
     with col2:
